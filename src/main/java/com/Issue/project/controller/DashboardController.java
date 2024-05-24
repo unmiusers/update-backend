@@ -1,5 +1,7 @@
 package com.Issue.project.controller;
 
+import com.Issue.project.service.DashboardService;
+
 // DashboardController.java
 @RestController
 @RequestMapping("/api/dashboard")
