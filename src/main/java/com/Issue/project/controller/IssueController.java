@@ -2,6 +2,15 @@ package com.Issue.project.controller;
 
 import com.Issue.project.model.Issue;
 import com.Issue.project.service.IssueService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 
 // IssueController.java
 @RestController

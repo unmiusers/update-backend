@@ -16,7 +16,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
-
     <!-- JWT Dependency -->
     <dependency>
         <groupId>io.jsonwebtoken</groupId>
@@ -36,6 +35,32 @@
         <artifactId>modelmapper</artifactId>
         <version>2.3.8</version>
     </dependency>
+        <!-- Spring Boot Starter Web -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
+    <!-- Spring Boot Starter Security -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <!-- Spring Data JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <!-- H2 Database (for development) -->
+    <dependency>
+        <groupId>com.h2database</groupId>
+        <scope>runtime</scope>
+    </dependency>
+        <!-- Spring Boot Starter Test (for testing) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
     <!-- Other necessary dependencies -->
 </dependencies>

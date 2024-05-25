@@ -1,4 +1,6 @@
 package com.Issue.project.config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.MergedAnnotationsTests.EnableWebSecurity;
 // SecurityConfig.java
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

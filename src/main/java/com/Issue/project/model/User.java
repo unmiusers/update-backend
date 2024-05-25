@@ -1,91 +1,66 @@
 package com.Issue.project.model;
+import com.Issue.project.model.Role;
+import org.springframework.core.annotation.MergedAnnotationsTests.Id;
+import org.springframework.core.annotation.MergedAnnotationsTests.GeneratedValue
 
-// User.java
+import java.util.Set;
+
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
     private String password;
-    // getters and setters
-}
+    private String email;
 
-// Issue.java
-@Entity
-public class Issue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    private String description;
-    @ManyToOne
-    private User createdBy;
-    // getters and setters
-}
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 
-// Project.java
-@Entity
-public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String description;
     // getters and setters
-}
+    public Long getId() {
+        return id;
+    }
 
-// Notification.java
-@Entity
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String message;
-    private boolean read;
-    @ManyToOne
-    private User user;
-    // getters and setters
-}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-// WikiPage.java
-@Entity
-public class WikiPage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    private String content;
-    // getters and setters
-}
+    public String getUsername() {
+        return username;
+    }
 
-// Dashboard.java
-public class Dashboard {
-    private long openIssues;
-    private List<Project> projects;
-    // getters and setters
-}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-// Plugin.java
-@Entity
-public class Plugin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String version;
-    // getters and setters
-}
+    public String getPassword() {
+        return password;
+    }
 
-// AutomationTask.java
-@Entity
-public class AutomationTask {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String description;
-    @ManyToOne
-    private User createdBy;
-    // getters and setters
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
