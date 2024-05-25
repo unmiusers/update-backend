@@ -1,6 +1,8 @@
 package com.Issue.project.service;
 
 import com.Issue.project.model.Issue;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 // VersionIntegrationService.java
 @Service

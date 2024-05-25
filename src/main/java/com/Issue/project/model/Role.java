@@ -2,6 +2,7 @@ package com.Issue.project.model;
 import java.util.Set;
 import org.springframework.core.annotation.MergedAnnotationsTests.GeneratedValue;
 import org.springframework.core.annotation.MergedAnnotationsTests.Id;
+import javax.persistence.Entity;
 
 @Entity
 public class Role {
@@ -39,3 +40,4 @@ public class Role {
         this.users = users;
     }
 }
+

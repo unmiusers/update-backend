@@ -3,7 +3,9 @@ package com.Issue.project.service;
 import com.Issue.project.model.Project;
 import com.Issue.project.model.User;
 import com.Issue.project.repository.ProjectRepository;
-
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.docs.features.testing.springbootapplications.autoconfiguredspringdatajpa.withoutdb.UserRepository;
 import java.util.List;
 
 // ProjectService.java

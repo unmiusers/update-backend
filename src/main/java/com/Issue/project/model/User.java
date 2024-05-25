@@ -1,5 +1,4 @@
 package com.Issue.project.model;
-import com.Issue.project.model.Role;
 import org.springframework.core.annotation.MergedAnnotationsTests.Id;
 import org.springframework.core.annotation.MergedAnnotationsTests.GeneratedValue
 

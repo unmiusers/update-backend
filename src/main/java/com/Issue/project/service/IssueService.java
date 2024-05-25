@@ -1,28 +1,35 @@
 package com.Issue.project.service;
 
 import com.Issue.project.model.Issue;
-import com.Issue.project.model.User;
+import com.Issue.project.repository.IssueRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-// IssueService.java
+import java.util.List;
+
 @Service
 public class IssueService {
 
     @Autowired
     private IssueRepository issueRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public List<Issue> getIssuesByUserId(Long userId) {
+        return issueRepository.findByAssignedUserId(userId);
+    }
 
-    public Issue createIssue(IssueRequest issueRequest, String username) {
-        User user = userRepository.findByUsername(username);
-        Issue issue = new Issue();
-        issue.setTitle(issueRequest.getTitle());
-        issue.setDescription(issueRequest.getDescription());
-        issue.setCreatedBy(user);
+    public List<Issue> getIssuesByProjectId(Long projectId) {
+        return issueRepository.findByProjectId(projectId);
+    }
+
+    public Issue createIssue(Issue issue) {
         return issueRepository.save(issue);
     }
 
-    public Issue getIssueById(Long id) {
-        return issueRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Issue not found"));
+    public Issue updateIssue(Issue issue) {
+        return issueRepository.save(issue);
+    }
+
+    public void deleteIssue(Long issueId) {
+        issueRepository.deleteById(issueId);
     }
 }

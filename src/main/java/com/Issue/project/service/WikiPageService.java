@@ -1,10 +1,9 @@
 package com.Issue.project.service;
 
 import com.Issue.project.model.User;
-import com.Issue.project.model.WikiPage;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 // WikiPageService.java
 @Service
