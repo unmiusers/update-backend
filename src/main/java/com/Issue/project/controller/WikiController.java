@@ -1,55 +1,45 @@
 package com.Issue.project.controller;
 
-import com.Issue.project.service.WikiPageService;
+import com.Issue.project.model.Wikipage;
+import com.Issue.project.service.WikipageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-// WikiPageController.java
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/wiki")
-public class WikiPageController {
+public class WikiController {
 
     @Autowired
-    private WikiPageService wikiPageService;
+    private WikipageService wikipageService;
 
-    @PostMapping("/pages")
-    public ResponseEntity<WikiPage> createWikiPage(@RequestBody WikiPageRequest wikiPageRequest, Authentication authentication) {
-        WikiPage wikiPage = wikiPageService.createWikiPage(wikiPageRequest, authentication.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(wikiPage);
+    @GetMapping
+    public List<Wikipage> getAllPages() {
+        return wikipageService.getAllPages();
     }
 
-    @PutMapping("/pages/{id}")
-    public ResponseEntity<WikiPage> updateWikiPage(@PathVariable Long id, @RequestBody WikiPageRequest wikiPageRequest, Authentication authentication) {
-        WikiPage wikiPage = wikiPageService.updateWikiPage(id, wikiPageRequest, authentication.getName());
-        return ResponseEntity.ok(wikiPage);
+    @GetMapping("/{id}")
+    public ResponseEntity<Wikipage> getPageById(@PathVariable Long id) {
+        return wikipageService.getPageById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/pages/{id}")
-    public ResponseEntity<WikiPage> getWikiPage(@PathVariable Long id) {
-        WikiPage wikiPage = wikiPageService.getWikiPageById(id);
-        return ResponseEntity.ok(wikiPage);
+    @PostMapping
+    public Wikipage createPage(@RequestBody Wikipage wikipage) {
+        return wikipageService.createPage(wikipage);
     }
 
-    @DeleteMapping("/pages/{id}")
-    public ResponseEntity<Void> deleteWikiPage(@PathVariable Long id) {
-        wikiPageService.deleteWikiPage(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<Wikipage> updatePage(@PathVariable Long id, @RequestBody Wikipage updatedPage) {
+        return ResponseEntity.ok(wikipageService.updatePage(id, updatedPage));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePage(@PathVariable Long id) {
+        wikipageService.deletePage(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/pages/search")
-    public ResponseEntity<List<WikiPage>> searchWikiPages(@RequestParam String title) {
-        List<WikiPage> wikiPages = wikiPageService.searchWikiPages(title);
-        return ResponseEntity.ok(wikiPages);
     }
 }

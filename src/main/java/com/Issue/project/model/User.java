@@ -2,7 +2,13 @@ package com.Issue.project.model;
 import org.springframework.core.annotation.MergedAnnotationsTests.Id;
 import org.springframework.core.annotation.MergedAnnotationsTests.GeneratedValue
 
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import java.util.Set;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 
 @Entity
 public class User {

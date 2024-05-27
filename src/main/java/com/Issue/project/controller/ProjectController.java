@@ -1,5 +1,6 @@
 package com.Issue.project.controller;
 
+import com.Issue.project.dto.ProjectRequest;
 import com.Issue.project.model.Project;
 import com.Issue.project.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;

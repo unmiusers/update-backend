@@ -1,5 +1,6 @@
 package com.Issue.project.controller;
 
+import com.Issue.project.model.Dashboard;
 import com.Issue.project.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

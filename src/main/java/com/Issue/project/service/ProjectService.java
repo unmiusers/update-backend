@@ -1,5 +1,7 @@
 package com.Issue.project.service;
 
+import com.Issue.project.dto.ProjectRequest;
+import com.Issue.project.exception.ResourceNotFoundException;
 import com.Issue.project.model.Project;
 import com.Issue.project.model.User;
 import com.Issue.project.repository.ProjectRepository;

@@ -1,52 +1,41 @@
 package com.Issue.project.service;
 
-import com.Issue.project.model.User;
+import com.Issue.project.model.Wikipage;
+import com.Issue.project.repository.WikipageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
-// WikiPageService.java
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class WikiPageService {
+public class WikipageService {
 
     @Autowired
-    private WikiPageRepository wikiPageRepository;
+    private WikipageRepository wikipageRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public WikiPage createWikiPage(WikiPageRequest wikiPageRequest, String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        WikiPage wikiPage = new WikiPage();
-        wikiPage.setTitle(wikiPageRequest.getTitle());
-        wikiPage.setContent(wikiPageRequest.getContent());
-        wikiPage.setCreatedDate(LocalDateTime.now());
-        wikiPage.setLastModifiedDate(LocalDateTime.now());
-        wikiPage.setCreatedBy(user);
-        wikiPage.setLastModifiedBy(user);
-        return wikiPageRepository.save(wikiPage);
+    public List<Wikipage> getAllPages() {
+        return wikipageRepository.findAll();
     }
 
-    public WikiPage updateWikiPage(Long id, WikiPageRequest wikiPageRequest, String username) {
-        WikiPage wikiPage = wikiPageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Wiki page not found"));
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        wikiPage.setTitle(wikiPageRequest.getTitle());
-        wikiPage.setContent(wikiPageRequest.getContent());
-        wikiPage.setLastModifiedDate(LocalDateTime.now());
-        wikiPage.setLastModifiedBy(user);
-        return wikiPageRepository.save(wikiPage);
+    public Optional<Wikipage> getPageById(Long id) {
+        return wikipageRepository.findById(id);
     }
 
-    public WikiPage getWikiPageById(Long id) {
-        return wikiPageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Wiki page not found"));
+    public Wikipage createPage(Wikipage wikipage) {
+        return wikipageRepository.save(wikipage);
     }
 
-    public void deleteWikiPage(Long id) {
-        WikiPage wikiPage = wikiPageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Wiki page not found"));
-        wikiPageRepository.delete(wikiPage);
+    public Wikipage updatePage(Long id, Wikipage updatedPage) {
+        return wikipageRepository.findById(id).map(page -> {
+            page.setTitle(updatedPage.getTitle());
+            page.setContent(updatedPage.getContent());
+            page.setAuthor(updatedPage.getAuthor());
+            return wikipageRepository.save(page);
+        }).orElseThrow(() -> new ResourceNotFoundException("Page not found with id " + id));
     }
 
-    public List<WikiPage> searchWikiPages(String title) {
-        return wikiPageRepository.findByTitleContaining(title);
+    public void deletePage(Long id) {
+        wikipageRepository.deleteById(id);
     }
 }

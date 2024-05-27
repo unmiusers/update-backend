@@ -1,30 +1,38 @@
 package com.Issue.project.service;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
- // AuthController.java
-@RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+import com.Issue.project.model.User;
+import com.Issue.project.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthService {
 
     @Autowired
-    private AuthService authService;
+    private UserRepository userRepository;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        String token = authService.authenticate(loginRequest);
-        return ResponseEntity.ok(new AuthResponse(token));
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public User registerUser(User user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new RuntimeException("Username already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        authService.register(registerRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public User authenticateUser(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        } else {
+            throw new RuntimeException("Invalid username or password");
+        }
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
-

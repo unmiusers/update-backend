@@ -1,5 +1,6 @@
 package com.Issue.project.model;
 
+import javax.persistence.*;
 import java.util.List;
 
 // Project.java
